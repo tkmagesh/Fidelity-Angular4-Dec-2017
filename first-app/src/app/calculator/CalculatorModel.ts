@@ -2,7 +2,7 @@
 
 export class CalculatorModel{
 	n1 : number = 0;
-	n2 : number = 2;
+	n2 : number = 0;
 	result : number = 0;
 
 	add(){
