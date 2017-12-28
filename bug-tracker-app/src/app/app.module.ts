@@ -9,11 +9,14 @@ import { BugStatsComponent } from './bugTracker/views/bugStats.component';
 
 import { BugOperationsService } from './bugTracker/services/bugOperations.service';
 
+import { TrimTextPipe } from './bugTracker/pipes/trimText.pipe';
+
 @NgModule({
   declarations: [
     AppComponent,
     BugTrackerComponent,
-    BugStatsComponent
+    BugStatsComponent,
+    TrimTextPipe
   ],
   imports: [
     BrowserModule
