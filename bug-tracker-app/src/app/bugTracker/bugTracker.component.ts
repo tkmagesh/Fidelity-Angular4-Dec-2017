@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IBug } from './models/IBug';
 import { BugStorageService } from './services/bugStorageService';
 
+import * as moment from 'moment';
 
 @Component({
 	selector : 'bug-tracker',
@@ -16,16 +17,16 @@ export class BugTrackerComponent{
 
 	sortByDescending : boolean = false;
 
-	newBugName : string = '';
+	
 
 	
 
 	constructor(private bugStorage : BugStorageService){
+		console.log(moment('29-Dec-2017 02:19:40 PM').fromNow());
 		this.bugs = this.bugStorage.getAll();
 	}
 
-	onCreateClick() : void {
-		let newBug : IBug = this.bugStorage.addNew(this.newBugName);
+	onNewBugCreated(newBug : IBug){
 		this.bugs = [...this.bugs, newBug];
 	}
 
