@@ -8,6 +8,8 @@ import { BugStatsComponent } from './bugTracker/views/bugStats.component';
 
 
 import { BugOperationsService } from './bugTracker/services/bugOperations.service';
+import { BugStorageService } from './bugTracker/services/bugStorageService';
+
 import { ClosedCountPipe } from './bugTracker/pipes/closedCount.pipe';
 
 import { TrimTextPipe } from './bugTracker/pipes/trimText.pipe';
@@ -27,7 +29,8 @@ import { SortPipe } from './bugTracker/pipes/sort.pipe';
     FormsModule
   ],
   providers: [
-    BugOperationsService
+    BugOperationsService,
+    BugStorageService
   ],
   bootstrap: [AppComponent]
 })

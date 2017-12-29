@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IBug } from './models/IBug';
-import { BugOperationsService } from './services/bugOperations.service';
+import { BugStorageService } from './services/bugStorageService';
+
 
 @Component({
 	selector : 'bug-tracker',
@@ -17,23 +18,27 @@ export class BugTrackerComponent{
 
 	newBugName : string = '';
 
-	/*private bugOperations : BugOperationsService;*/
+	
 
-	constructor(private bugOperations : BugOperationsService){
-		/*this.bugOperations = bugOperations;*/
+	constructor(private bugStorage : BugStorageService){
+		this.bugs = this.bugStorage.getAll();
 	}
 
 	onCreateClick() : void {
-		let newBug : IBug = this.bugOperations.createNew(this.newBugName);
+		let newBug : IBug = this.bugStorage.addNew(this.newBugName);
 		this.bugs = [...this.bugs, newBug];
 	}
 
 	onBugClick(bugToToggle : IBug) : void {
-		let toggledBug = this.bugOperations.toggle(bugToToggle);
+		let toggledBug = this.bugStorage.toggle(bugToToggle);
 		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
 	}
 
 	onRemoveClosedClick() : void {
+		this.bugs
+			.filter(bug => bug.isClosed)
+			.forEach(bugToRemove => this.bugStorage.remove(bugToRemove));
+
 		this.bugs = this.bugs.filter(bug => !bug.isClosed);
 	}
 
