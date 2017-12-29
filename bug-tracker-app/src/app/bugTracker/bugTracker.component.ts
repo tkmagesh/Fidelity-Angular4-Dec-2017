@@ -11,6 +11,10 @@ export class BugTrackerComponent{
 
 	closedCount : number = 0;
 
+	sortBugBy : string = 'name';
+
+	sortByDescending : boolean = false;
+
 	/*private bugOperations : BugOperationsService;*/
 
 	constructor(private bugOperations : BugOperationsService){
