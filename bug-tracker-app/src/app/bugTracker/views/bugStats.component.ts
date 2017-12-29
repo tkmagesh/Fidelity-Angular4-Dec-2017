@@ -1,11 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { IBug } from '../models/IBug';
 
 @Component({
 	selector : 'bug-stats',
+	changeDetection : ChangeDetectionStrategy.OnPush,
 	template : `
+		<div>{{getCurrentTime()}}</div>
 		<section class="stats">
-			<span class="closed">{{getClosedCount()}}</span>
+			<span class="closed">{{ bugs | closedCount }}</span>
 			<span> / </span>
 			<span>{{bugs.length}}</span>
 		</section>
@@ -16,8 +18,8 @@ export class BugStatsComponent{
 	@Input('data')
 	bugs : IBug[] = [];
 
-	getClosedCount() : number {
-		return this.bugs.reduce((prevResult, bug) => 
-			bug.isClosed ? ++prevResult : prevResult, 0);
+	getCurrentTime(){
+		return new Date();
 	}
+	
 }

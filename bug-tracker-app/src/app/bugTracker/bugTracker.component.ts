@@ -15,19 +15,22 @@ export class BugTrackerComponent{
 
 	sortByDescending : boolean = false;
 
+	newBugName : string = '';
+
 	/*private bugOperations : BugOperationsService;*/
 
 	constructor(private bugOperations : BugOperationsService){
 		/*this.bugOperations = bugOperations;*/
 	}
 
-	onCreateClick(bugName : string) : void {
-		let newBug : IBug = this.bugOperations.createNew(bugName);
-		this.bugs.push(newBug);
+	onCreateClick() : void {
+		let newBug : IBug = this.bugOperations.createNew(this.newBugName);
+		this.bugs = [...this.bugs, newBug];
 	}
 
-	onBugClick(bug : IBug) : void {
-		this.bugOperations.toggle(bug);	
+	onBugClick(bugToToggle : IBug) : void {
+		let toggledBug = this.bugOperations.toggle(bugToToggle);
+		this.bugs = this.bugs.map(bug => bug === bugToToggle ? toggledBug : bug);
 	}
 
 	onRemoveClosedClick() : void {
