@@ -1,14 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IBug } from './models/IBug';
 import { BugStorageService } from './services/bugStorageService';
 
 import * as moment from 'moment';
 
+import add from './dummy';
+
+
+
+console.log(add(100,200));
+
 @Component({
 	selector : 'bug-tracker',
 	templateUrl : 'bugTracker.component.html'
 })
-export class BugTrackerComponent{
+export class BugTrackerComponent implements OnInit{
 	bugs : IBug[] = [];
 
 	closedCount : number = 0;
@@ -18,12 +24,14 @@ export class BugTrackerComponent{
 	sortByDescending : boolean = false;
 
 	
-
+	ngOnInit(){
+		this.bugs = this.bugStorage.getAll();
+	}
 	
 
 	constructor(private bugStorage : BugStorageService){
-		console.log(moment('29-Dec-2017 02:19:40 PM').fromNow());
-		this.bugs = this.bugStorage.getAll();
+		
+		
 	}
 
 	onNewBugCreated(newBug : IBug){
