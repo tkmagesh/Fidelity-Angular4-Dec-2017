@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "bug-tracker-app",
+    "name": "bug-tracker-app-routing-new",
     "ejected": true
   },
   "apps": [

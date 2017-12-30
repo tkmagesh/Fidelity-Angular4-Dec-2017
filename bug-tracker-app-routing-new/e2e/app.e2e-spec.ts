@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('bug-tracker-app App', () => {
+describe('bug-tracker-app-routing-new App', () => {
   let page: AppPage;
 
   beforeEach(() => {
