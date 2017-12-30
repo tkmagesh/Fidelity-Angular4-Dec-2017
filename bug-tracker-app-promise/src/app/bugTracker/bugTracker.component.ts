@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IBug } from './models/IBug';
-import { BugStorageService } from './services/bugStorageService';
-
-import axios from 'axios';
+import { BugServerService } from './services/bugServer.service';
 
 @Component({
 	selector : 'bug-tracker',
@@ -19,13 +17,13 @@ export class BugTrackerComponent implements OnInit{
 
 	
 	ngOnInit(){
-		//this.bugs = this.bugStorage.getAll();
-		axios.get('http://localhost:3000/bugs')
-			.then(response => this.bugs = response.data);
+		this.bugServer
+			.getAll()
+			.then(bugs => this.bugs = bugs);
 	}
 	
 
-	constructor(private bugStorage : BugStorageService){
+	constructor(private bugServer : BugServerService){
 		
 		
 	}
@@ -35,16 +33,16 @@ export class BugTrackerComponent implements OnInit{
 	}
 
 	onBugClick(bugToToggle : IBug) : void {
-		let toggledBug = {...bugToToggle, isClosed : !bugToToggle.isClosed};
-		axios.put(`http://localhost:3000/bugs/${toggledBug.id}`, toggledBug)
-			.then(response => this.bugs = this.bugs.map(bug => bug.id === response.data.id ? response.data : bug))
+		this.bugServer
+			.toggle(bugToToggle)
+			.then(toggledBug => this.bugs = this.bugs.map(bug => bug.id === toggledBug.id ? toggledBug : bug));
 		
 	}
 
 	onRemoveClosedClick() : void {
 		this.bugs
 			.filter(bug => bug.isClosed)
-			.forEach(bugToRemove => axios.delete(`http://localhost:3000/bugs/${bugToRemove.id}`));
+			.forEach(bugToRemove => this.bugServer.remove(bugToRemove));
 
 		this.bugs = this.bugs.filter(bug => !bug.isClosed);
 	}

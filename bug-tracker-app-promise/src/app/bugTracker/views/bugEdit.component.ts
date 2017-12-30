@@ -1,8 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { BugStorageService } from '../services/bugStorageService';
+
 import { IBug } from '../models/IBug';
 
-import axios from 'axios';
+import { BugServerService } from '../services/bugServer.service';
+
 
 @Component({
 	selector : 'bug-edit',
@@ -21,19 +22,12 @@ export class BugEditComponent{
 	@Output()
 	bugCreated : EventEmitter<IBug> = new EventEmitter<IBug>();
 
-	constructor(private bugStorage : BugStorageService){
+	constructor(private bugServer : BugServerService){
 	}
 	onCreateClick() : void {
-		let newBugData = {
-			id : 0,
-			name : this.newBugName,
-			isClosed : false,
-			createdAt : new Date()
-		};
-
-		axios.post('http://localhost:3000/bugs', newBugData)
-			.then(response => this.bugCreated.emit(response.data));
-		
+		this.bugServer
+			.addNew(this.newBugName)
+			.then(newBug => this.bugCreated.emit(newBug));
 	}
 
 }
