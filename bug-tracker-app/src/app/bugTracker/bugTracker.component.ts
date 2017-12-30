@@ -2,13 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { IBug } from './models/IBug';
 import { BugStorageService } from './services/bugStorageService';
 
-import * as moment from 'moment';
-
-import add from './dummy';
-
-
-
-console.log(add(100,200));
 
 @Component({
 	selector : 'bug-tracker',
@@ -16,8 +9,6 @@ console.log(add(100,200));
 })
 export class BugTrackerComponent implements OnInit{
 	bugs : IBug[] = [];
-
-	closedCount : number = 0;
 
 	sortBugBy : string = 'name';
 

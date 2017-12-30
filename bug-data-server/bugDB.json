@@ -14,7 +14,7 @@
     },
     {
       "name": "Promises are not promising",
-      "isClosed": false,
+      "isClosed": true,
       "id": 4,
       "createdAt": "2017-12-20T05:25:47.093Z"
     }
